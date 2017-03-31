@@ -1,3 +1,5 @@
+require('pry')
+
 class Word
     @@words = []
     attr_reader(:word, :definitions, :id, :delete_flag)
@@ -93,11 +95,9 @@ class Definition
     define_singleton_method(:find) do |id|
         found_definition = nil
         @@definitions.each do |definition|
-            if definition != nil
-                if definition.delete_flag != true
-                    if definition.id.eql?(id)
-                        found_definition = definition
-                    end
+            if (definition != nil) && (definition.delete_flag != true)
+                if definition.id.eql?(id)
+                    found_definition = definition
                 end
             end
         end
@@ -107,7 +107,8 @@ class Definition
     define_singleton_method(:find_delete) do |id|
         found_definition = nil
         @@definitions.each do |definition|
-            if definition != nil
+            if definition !=
+
                 if definition.delete_flag == true
                     found_definition = definition
                 end
