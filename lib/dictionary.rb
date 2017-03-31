@@ -1,10 +1,10 @@
 class Word
     @@words = []
-    attr_reader(:word, :definition, :id, :delete_flag)
+    attr_reader(:word, :definitions, :id, :delete_flag)
     attr_writer(:delete_flag)
     define_method(:initialize) do |word|
         @word = word.fetch(:word)
-        @definition = word.fetch(:definition)
+        @definitions = []
         @id = @@words.length.+(1)
         @delete_flag = false
     end
@@ -24,69 +24,94 @@ class Word
     define_singleton_method(:find) do |id|
         found_word = nil
         @@words.each do |word|
-          if word.delete_flag != true
-            if word.id.eql?(id.to_i)
-                found_word = word
+            if word.delete_flag != true
+                if word.id.eql?(id.to_i)
+                    found_word = word
+                end
             end
-          end
         end
         found_word
+    end
+
+    define_singleton_method(:find_delete) do |id|
+        found_word = nil
+        @@words.each do |word|
+            if word != nil
+                if word.delete_flag == true
+                    found_word = word
+                end
+            end
+        end
     end
 
     define_singleton_method(:delete) do |id|
         @@words[id-1].delete_flag = true
     end
 
+    define_singleton_method(:find_definition) do |id|
+        found_definitions=@@words[id-1].definitions
+        if found_definitions != nil
+            return found_definitions
+        else
+            return []
+        end
+    end
+
+    define_method(:add_definition) do |definition|
+        @definitions.push(definition)
+    end
+
+
 end
 
-class Dealership
-    @@dealerships = []
-    attr_reader(:name, :id, :cars)
-    define_method(:initialize) do |dealer|
-        @name = dealer
-        @id = @@dealerships.length().+(1)
-        @cars = []
+class Definition
+    @@definitions = []
+    attr_reader(:content, :id, :delete_flag)
+    define_method(:initialize) do |meaning|
+        @content = meaning.fetch(:content)
+        @id = @@definitions.length.+(1)
+        @delete_flag = false
     end
 
     define_singleton_method(:all) do
-        @@dealerships
+        @@definitions
     end
 
     define_method(:save) do
-        @@dealerships.push(self)
+        @@definitions.push(self)
     end
 
     define_singleton_method(:delete) do |id|
-        @@dealerships[id-1] = nil
+        @@definitions[id-1].delete_flag = true
     end
 
     define_singleton_method(:clear) do
-        @@dealerships = []
+        @@definitions = []
     end
 
     define_singleton_method(:find) do |id|
-        found_dealership = nil
-        @@dealerships.each() do |dealership|
-          if dealership != nil
-            if dealership.id().eql?(id)
-                found_dealership = dealership
+        found_definition = nil
+        @@definitions.each do |definition|
+            if definition != nil
+                if definition.delete_flag != true
+                    if definition.id.eql?(id)
+                        found_definition = definition
+                    end
+                end
             end
-          end
         end
-        found_dealership
+        found_definition
     end
 
-    define_singleton_method(:find_cars) do |id|
-        found_cars=@@dealerships[id-1].cars
-        if found_cars != nil
-          return found_cars
-        else
-          return []
+    define_singleton_method(:find_delete) do |id|
+        found_definition = nil
+        @@definitions.each do |definition|
+            if definition != nil
+                if definition.delete_flag == true
+                    found_definition = definition
+                end
+            end
         end
-    end
-
-    define_method(:add_word) do |word|
-        @cars.push(word)
     end
 
 end
