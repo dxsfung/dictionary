@@ -1,0 +1,41 @@
+<h1 class="text-center">Words</h1>
+
+<div class="container-fluid">
+    <li class="list-group-item">
+    <img class="center-block img-responsive" style="max-height:300px" src="https://media.giphy.com/media/l0HlRnAWXxn0MhKLK/giphy.gif
+    "></li>
+</div>
+
+<h3 class="text-center">Click a word to view definition(s)</h3>
+
+<!-- sort all words first before display -->
+<% @words.sort! { |a,b| a.word.downcase <=> b.word.downcase } %>
+
+<% @words.each do |word| %>
+    <% if (word != nil) && (word.delete_flag != true) %>
+        <div class="row text-center">
+            <form style="display: inline-block" action="/words/<%= word.id %>">
+                <button class="btn btn-success btn-cons center-block">
+                    <%= word.word %>
+                </button>
+            </form>
+            <form style="display: inline-block" action="/del_words/<%= word.id %>">
+                <button class="btn btn-danger btn-cons center-block">
+                    delete
+                </button>
+            </form>
+        </div>
+    <% end %>
+<% end %>
+
+<form action="/words/new">
+    <button class="btn btn-info center-block">
+        Add New Word
+    </button>
+</form>
+
+<form action="/">
+    <button class="btn btn-primary center-block">
+        Return to Main Page
+    </button>
+</form>

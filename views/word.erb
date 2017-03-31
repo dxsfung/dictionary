@@ -1,0 +1,37 @@
+<h1 class="text-center">Word: <%= @word.word %></h1>
+
+<div class="container-fluid">
+<li class="list-group-item">
+    <img class="center-block img-responsive" style="max-height:300px" src="https://media.giphy.com/media/l0HlRnAWXxn0MhKLK/giphy.gif
+"></li>
+</div>
+
+<h3 style="text-align: center">Here are all the definitions of <%= @word.word %></h3>
+
+  <ol style="text-aline: center">
+    <% @word.definitions.each do |definition| %>
+      <% if (definition != nil) && (definition.delete_flag != true) %>
+        <li>
+          <%= definition.content %>
+        </li>
+      <% end %>
+    <% end %>
+  <ol>
+
+<form action="/words/<%= @word.id%>/definitions/new">
+    <button class="btn btn-info col-sm-4">
+        Add a new definition
+    </button>
+</form>
+
+<form action="/words">
+    <button class="btn btn-success col-sm-4">
+        See Words
+    </button>
+</form>
+
+<form action="/">
+    <button class="btn btn-primary col-sm-4">
+        Return to Main Page
+    </button>
+</form>

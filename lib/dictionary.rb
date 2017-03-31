@@ -67,6 +67,7 @@ end
 class Definition
     @@definitions = []
     attr_reader(:content, :id, :delete_flag)
+    attr_writer(:delete_flag)
     define_method(:initialize) do |meaning|
         @content = meaning.fetch(:content)
         @id = @@definitions.length.+(1)

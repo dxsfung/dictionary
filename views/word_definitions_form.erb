@@ -1,0 +1,25 @@
+<h1 class="text-center">Add a definition to
+    <%= @word.word %>
+</h1>
+
+<div class="container-fluid">
+<li class="list-group-item">
+    <img class="center-block img-responsive" style="max-height:300px" src="https://media.giphy.com/media/l0HlRnAWXxn0MhKLK/giphy.gif
+"></li>
+</div>
+
+<div class="text-center">
+<form action="/definitions" method="post">
+    <input id='word_id' name='word_id' type='hidden' value='<%= @word.id() %>'>
+    <label for='content'>Enter Definition:</label>
+    <input id='content' name='content' type='text'>
+    <br>
+    <button class="btn btn-info btn-cons" type="submit">Add Definition</button>
+</form>
+</div>
+
+<form action="/">
+<button class="btn btn-primary center-block">
+    Return to Main Page
+</button>
+</form>
